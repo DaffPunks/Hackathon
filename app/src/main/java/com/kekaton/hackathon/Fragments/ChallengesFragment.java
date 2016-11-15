@@ -72,6 +72,35 @@ public class ChallengesFragment extends BaseFragment {
 
         if(isCompleted){
             textView.setText("Тут выполненные");
+            tr = (EditText) view.findViewById(R.id.tr);
+            translated = (TextView) view.findViewById(R.id.translated);
+            translateBtn = (Button) view.findViewById(R.id.translate);
+            translateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map<String, String> mapJson = new HashMap<>();
+                    mapJson.put("key", KEY);
+                    mapJson.put("text", tr.toString());
+                    mapJson.put("lang", "en-ru");
+                    Call<Object> call = intf.translate(mapJson);
+                    call.enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+
+                            Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
+                            for(Map.Entry e : map.entrySet()) {
+                                if(e.getKey().equals("text"))
+                                    translated.setText(e.getValue().toString());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+                            translated.setText("Error obtaining network data!");
+                        }
+                    });
+                }
+            });
         } else {
             textView.setText("Тут текущие");
         }
@@ -83,35 +112,7 @@ public class ChallengesFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tr = (EditText) view.findViewById(R.id.tr);
-        translated = (TextView) view.findViewById(R.id.translated);
-        translateBtn = (Button) view.findViewById(R.id.translate);
-        translateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<String, String> mapJson = new HashMap<>();
-                mapJson.put("key", KEY);
-                mapJson.put("text", tr.toString());
-                mapJson.put("lang", "en-ru");
-                Call<Object> call = intf.translate(mapJson);
-                call.enqueue(new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
 
-                        Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
-                        for(Map.Entry e : map.entrySet()) {
-                            if(e.getKey().equals("text"))
-                                translated.setText(e.getValue().toString());
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-                    }
-                });
-            }
-        });
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
