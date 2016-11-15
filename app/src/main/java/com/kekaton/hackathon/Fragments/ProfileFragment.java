@@ -71,28 +71,22 @@ public class ProfileFragment extends BaseFragment {
                 mapJson.put("text", text.toString());
                 mapJson.put("lang", "en-ru");
                 Call<Object> call = intf.translate(mapJson);
-                try {
-                    Response<Object> response = call.enqueue(new Callback<Object>() {
-                        @Override
-                        public void onResponse(Call<Object> call, Response<Object> response) {
+                call.enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+
+                        Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
+                        for(Map.Entry e : map.entrySet()) {
+                            if(e.getKey().equals("text"))
+                                translated.setText(e.getValue().toString());
 
                         }
-
-                        @Override
-                        public void onFailure(Call<Object> call, Throwable t) {
-
-                        }
-                    });
-
-                    Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
-
-                    for(Map.Entry e : map.entrySet()) {
-                        if(e.getKey().equals("text"))
-                            translated.setText(e.getValue().toString());
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                    }
+                });
             }
         });
     }
