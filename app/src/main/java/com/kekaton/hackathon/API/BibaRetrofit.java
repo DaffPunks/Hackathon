@@ -1,4 +1,4 @@
-package com.kekaton.hackathon;
+package com.kekaton.hackathon.API;
 
 import java.util.Map;
 

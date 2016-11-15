@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,4 +18,25 @@
         android:text="Large Text"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/translated"
+        android:layout_weight="0.08" />
+
+    <Button
+        android:text="translate!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/translate" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/tr"
+        android:hint="translate" />
 </LinearLayout>
