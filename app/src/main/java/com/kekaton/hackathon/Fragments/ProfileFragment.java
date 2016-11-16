@@ -44,12 +44,12 @@ public class ProfileFragment extends BaseFragment {
         mToolbar.setTitle("Profile");
         setupToolbarForFragment(mToolbar);
 
-        view.findViewById(R.id.ButtonLogin).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                VKSdk.login(getActivity(), sMyScope);
-            }
-        });
+        //view.findViewById(R.id.ButtonLogin).setOnClickListener(new View.OnClickListener(){
+        //    @Override
+        //    public void onClick(View view) {
+        //        VKSdk.login(getActivity(), sMyScope);
+        //    }
+        //});
 
 
 

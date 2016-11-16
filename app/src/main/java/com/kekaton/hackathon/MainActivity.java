@@ -86,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
                                 .withIcon(R.drawable.ic_star_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(FIRST_ID),
 
                         new PrimaryDrawerItem().withName("Бибан")
-                                .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(SECOND_ID)
+                                .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(SECOND_ID),
+
+                        new PrimaryDrawerItem().withName("Выйти")
+                                .withIcon(R.drawable.ic_checkbox_blank_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(3)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -115,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
                                                 .replace(R.id.main_activity_container, MainFragment.newInstance(), "fragment_main")
                                                 .commit();
 
+                                    }
+                                });
+                                break;
+                            case 3:
+                                mDrawerToggle.runWhenIdle(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        VKSdk.logout();
                                     }
                                 });
                                 break;
