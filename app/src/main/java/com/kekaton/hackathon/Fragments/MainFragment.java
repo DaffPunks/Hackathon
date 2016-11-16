@@ -45,7 +45,7 @@ public class MainFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mToolbar.setTitle("Kekathon");
+        mToolbar.setTitle("Hackathon");
 
         setupToolbarForFragment(mToolbar);
         setupViewPager(viewPager);
