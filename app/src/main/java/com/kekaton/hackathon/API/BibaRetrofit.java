@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 
 public interface BibaRetrofit {
     @FormUrlEncoded
-    @POST("/api/v1.5/tr.json/translate")
+    @POST("users.get?")
     Call<Object> translate(@FieldMap Map<String, String> map);
 }

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kekaton.hackathon.API.BibaRetrofit;
 import com.kekaton.hackathon.R;
 
@@ -33,8 +38,7 @@ public class ChallengesFragment extends BaseFragment {
     private EditText tr;
     private TextView translated;
     private Button translateBtn;
-    private final String URL = "https://translate.yandex.ru";
-    private final String KEY = "trnsl.1.1.20161113T050255Z.5ee1ca7d5dbbd970.b82f8c250d226be570b710628b3c273006fc862f";
+    private final String URL = "https://api.vk.com/method/";
 
     private Gson gson = new GsonBuilder().create();
     private Retrofit retrofit = new Retrofit.Builder()
@@ -79,19 +83,16 @@ public class ChallengesFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Map<String, String> mapJson = new HashMap<>();
-                    mapJson.put("key", KEY);
-                    mapJson.put("text", tr.toString());
-                    mapJson.put("lang", "en-ru");
+                    mapJson.put("user_ids", tr.getText().toString());
                     Call<Object> call = intf.translate(mapJson);
                     call.enqueue(new Callback<Object>() {
                         @Override
                         public void onResponse(Call<Object> call, Response<Object> response) {
-
-                            Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
-                            for(Map.Entry e : map.entrySet()) {
-                                if(e.getKey().equals("text"))
-                                    translated.setText(e.getValue().toString());
-                            }
+                            JsonParser parser = new JsonParser();
+                            JsonObject obj = parser.parse(response.body().toString()).getAsJsonObject();
+                            JsonArray pItem = obj.getAsJsonArray("response");
+                            obj = parser.parse(pItem.get(0).toString()).getAsJsonObject();
+                            translated.setText(obj.get("first_name").getAsString() + " " + obj.get("last_name").getAsString());
                         }
 
                         @Override
