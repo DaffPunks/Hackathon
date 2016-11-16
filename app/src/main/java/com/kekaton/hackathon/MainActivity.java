@@ -1,6 +1,8 @@
 package com.kekaton.hackathon;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.kekaton.hackathon.Activity.ProfileActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     SmoothActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
 
+    AppCompatActivity activity;
+
     private Drawer mDrawer;
     private AccountHeader mHeader;
 
@@ -43,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        
+        activity = this;
 
         fragmentManager = getSupportFragmentManager();
 
@@ -83,16 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         switch (drawerItem.getIdentifier()) {
                             default:
                             case FIRST_ID:
-                                mDrawerToggle.runWhenIdle(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        fragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.main_activity_container, ProfileFragment.newInstance(), "fragment_main")
-                                                .commit();
-
-                                    }
-                                });
+                                startActivity(new Intent(activity, ProfileActivity.class));
                                 break;
                             case SECOND_ID:
                                 mDrawerToggle.runWhenIdle(new Runnable() {
