@@ -7,11 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kekaton.hackathon.R;
+import com.vk.sdk.VKScope;
+import com.vk.sdk.VKSdk;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ProfileFragment extends BaseFragment {
+
+    private static final String[] sMyScope = new String[]{
+            VKScope.FRIENDS,
+            VKScope.WALL,
+            VKScope.PHOTOS,
+            VKScope.NOHTTPS,
+            VKScope.MESSAGES,
+            VKScope.DOCS
+    };
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
 
@@ -32,6 +43,14 @@ public class ProfileFragment extends BaseFragment {
 
         mToolbar.setTitle("Profile");
         setupToolbarForFragment(mToolbar);
+
+        view.findViewById(R.id.ButtonLogin).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                VKSdk.login(getActivity(), sMyScope);
+            }
+        });
+
 
 
         return view;

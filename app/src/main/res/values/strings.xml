@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Kekathon</string>
-
+    <integer name="com_vk_sdk_AppId">5724455</integer>
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
+    <string name="login">Login</string>
 </resources>
