@@ -1,4 +1,4 @@
-package com.kekaton.hackathon.Fragments;
+package com.kekaton.hackathon;
 
 import com.vk.sdk.VKSdk;
 
