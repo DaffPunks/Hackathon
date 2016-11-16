@@ -1,6 +1,7 @@
 package com.kekaton.hackathon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.kekaton.hackathon.Activity.LoginActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -16,7 +18,9 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     SmoothActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
+
+    AppCompatActivity activity;
 
     private Drawer mDrawer;
     private AccountHeader mHeader;
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activity = this;
+
         fragmentManager = getSupportFragmentManager();
 
         if (savedInstanceState == null) {
@@ -58,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
     private void handleDrawer(Bundle savedInstanceState) {
         final Activity activity = this;
         // Setup account header
+
         mHeader = new AccountHeaderBuilder()
                 .withActivity(activity)
+                .withHeaderBackground(R.drawable.bg)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Aleksandr Daff")
+                )
                 .build();
 
         // Setup drawer
@@ -80,16 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         switch (drawerItem.getIdentifier()) {
                             default:
                             case FIRST_ID:
-                                mDrawerToggle.runWhenIdle(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        fragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.main_activity_container, ProfileFragment.newInstance(), "fragment_main")
-                                                .commit();
-
-                                    }
-                                });
+                                startActivity(new Intent(activity, LoginActivity.class));
                                 break;
                             case SECOND_ID:
                                 mDrawerToggle.runWhenIdle(new Runnable() {
