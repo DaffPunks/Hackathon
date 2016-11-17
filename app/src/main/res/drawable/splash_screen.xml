@@ -5,6 +5,7 @@
         />
     <item>
         <bitmap
+            android:scaleType="centerCrop"
             android:gravity="center"
             android:src="@drawable/logo"/>
 

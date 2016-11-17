@@ -1,8 +1,8 @@
 package com.kekaton.hackathon;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.kekaton.hackathon.Activity.LoginActivity;
-import com.kekaton.hackathon.Activity.ProfileActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -23,22 +22,24 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vk.sdk.VKSdk;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int FIRST_ID = 1;
-    private static final int SECOND_ID = 2;
+    private static final int PROFILE_ID = 1;
+    private static final int FEED_ID = 2;
+    private static final int EXIT_ID = 0;
 
     FragmentManager fragmentManager;
     SmoothActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
 
-    AppCompatActivity activity;
-
     private Drawer mDrawer;
     private AccountHeader mHeader;
+
+    private String firstName;
+    private String lastName;
+    private String sex;
 
     public void openDrawer() {
         mDrawer.openDrawer();
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        activity = this;
-
         fragmentManager = getSupportFragmentManager();
 
         if (savedInstanceState == null) {
@@ -64,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
+        loadName();
         handleDrawer(savedInstanceState);
     }
 
@@ -74,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.bg)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Aleksandr Daff")
+                        new ProfileDrawerItem().withName(firstName + " " + lastName)
                 )
+                .withSelectionListEnabled(false)
                 .build();
 
         // Setup drawer
@@ -84,21 +85,21 @@ public class MainActivity extends AppCompatActivity {
                 .withAccountHeader(mHeader)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Профиль")
-                                .withIcon(R.drawable.ic_star_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(FIRST_ID),
+                                .withIcon(R.drawable.ic_star_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(PROFILE_ID),
 
-                        new PrimaryDrawerItem().withName("Бибан")
-                                .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(SECOND_ID),
+                        new PrimaryDrawerItem().withName("Лента")
+                                .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(FEED_ID),
 
                         new PrimaryDrawerItem().withName("Выйти")
-                                .withIcon(R.drawable.ic_checkbox_blank_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(3)
+                                .withIcon(R.drawable.ic_checkbox_blank_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(EXIT_ID)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-                        switch (drawerItem.getIdentifier()) {
+                        switch ((int)drawerItem.getIdentifier()) {
                             default:
-                            case FIRST_ID:
+                            case PROFILE_ID:
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                                 break;
-                            case SECOND_ID:
+                            case FEED_ID:
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
@@ -122,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                                 break;
-                            case 3:
+                            case EXIT_ID:
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
                                         VKSdk.logout();
-                                        if(!VKSdk.isLoggedIn()) {
+                                        if (!VKSdk.isLoggedIn()) {
                                             startActivity(new Intent(activity, LoginActivity.class));
                                         } else {
                                             Toast.makeText(activity, "Error", Toast.LENGTH_LONG).show();
@@ -146,8 +147,15 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = mDrawer.getDrawerLayout();
         mDrawerToggle = new SmoothActionBarDrawerToggle(this, mDrawerLayout, null, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawer.setSelection(SECOND_ID);
+        mDrawer.setSelection(-1);
 
+    }
+
+    private void loadName() {
+        SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+        firstName = sPref.getString("first_name", "mo");
+        lastName = sPref.getString("last_name", "noe");
+        sex = sPref.getString("sex", "x");
     }
 
     private class SmoothActionBarDrawerToggle extends ActionBarDrawerToggle {
