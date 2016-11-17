@@ -8,19 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kekaton.hackathon.API.VKApiCall;
-import com.kekaton.hackathon.Adapters.RVAdapter;
+import com.kekaton.hackathon.Adapters.ChallengesAdapter;
+import com.kekaton.hackathon.Model.Challenge;
 import com.kekaton.hackathon.R;
-import com.vk.sdk.api.VKApi;
-import com.vk.sdk.api.VKApiConst;
-import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKParameters;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +19,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ChallengesFragment extends BaseFragment {
-    @Bind(R.id.textView2)
-    TextView textView;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
     boolean isCompleted;
 
-    List<String> list;
+    List<Challenge> list;
 
     public ChallengesFragment() {
         //empty constructor
@@ -65,11 +53,11 @@ public class ChallengesFragment extends BaseFragment {
         recyclerView.setLayoutManager(llm);
 
         list = new ArrayList<>();
-        list.add("Rofl 1");
-        list.add("Rofl 2");
-        list.add("Rofl 3");
+        list.add(new Challenge(150, 30, "Въебу лыжами Раисе хуисе, дырявой преподавательнице физры КемГУ", 7634482));
+        list.add(new Challenge(10, 4, "Кину гавнецоу", 7634482));
+        list.add(new Challenge(121, 33, "Кину гавнецоу", 7634482));
 
-        RVAdapter adapter = new RVAdapter(list);
+        ChallengesAdapter adapter = new ChallengesAdapter(list, getActivity());
         recyclerView.setAdapter(adapter);
 
         return view;
