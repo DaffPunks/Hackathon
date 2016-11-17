@@ -3,6 +3,8 @@ package com.kekaton.hackathon;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kekaton.hackathon.Activity.LoginActivity;
@@ -19,9 +22,13 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKSdk;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String firstName;
     private String lastName;
+    private String photoMax;
     private String sex;
 
     public void openDrawer() {
@@ -69,14 +77,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleDrawer(Bundle savedInstanceState) {
         final Activity activity = this;
+
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.with(imageView.getContext()).load(uri).fit().placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+            }
+
+        });
+
         // Setup account header
         mHeader = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.bg)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(firstName + " " + lastName)
+                        new ProfileDrawerItem().withName(firstName + " " + lastName).withIcon(photoMax)
                 )
                 .withSelectionListEnabled(false)
+                .withProfileImagesClickable(false)
                 .build();
 
         // Setup drawer
@@ -89,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
                         new PrimaryDrawerItem().withName("Лента")
                                 .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(FEED_ID),
+
+                        new DividerDrawerItem(),
 
                         new PrimaryDrawerItem().withName("Выйти")
                                 .withIcon(R.drawable.ic_checkbox_blank_circle_black_24dp).withIconTintingEnabled(true).withIdentifier(EXIT_ID)
@@ -155,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
         firstName = sPref.getString("first_name", "mo");
         lastName = sPref.getString("last_name", "noe");
+        photoMax = sPref.getString("photoMax", "");
         sex = sPref.getString("sex", "x");
     }
 

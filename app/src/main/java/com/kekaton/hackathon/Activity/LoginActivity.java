@@ -65,11 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                         String first_name = "No";
                         String last_name = "Name";
                         String sex = "Sex";
+                        String photoMax = "";
                         try {
                             JSONArray jsonResponse = response.json.getJSONArray("response");
                             first_name = jsonResponse.optJSONObject(0).getString("first_name");
                             last_name = jsonResponse.optJSONObject(0).getString("last_name");
                             sex = jsonResponse.optJSONObject(0).getString("sex");
+                            photoMax = jsonResponse.optJSONObject(0).getString("photo_max");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -80,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                         ed.putString("first_name", first_name);
                         ed.putString("last_name", last_name);
                         ed.putString("sex", sex);
+                        ed.putString("photoMax", photoMax);
                         ed.apply();
 
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

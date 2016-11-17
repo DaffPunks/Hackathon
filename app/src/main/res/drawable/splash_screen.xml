@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@color/md_white_1000"
+        android:drawable="@color/splashBackGround"
         />
     <item>
         <bitmap
             android:scaleType="centerCrop"
             android:gravity="center"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/logo_3"/>
 
     </item>
-
 </layer-list>

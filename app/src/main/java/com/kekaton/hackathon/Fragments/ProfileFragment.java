@@ -55,4 +55,6 @@ public class ProfileFragment extends BaseFragment {
 
         return view;
     }
+
+
 }
