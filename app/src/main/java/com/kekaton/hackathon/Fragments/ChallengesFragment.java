@@ -1,11 +1,14 @@
 package com.kekaton.hackathon.Fragments;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kekaton.hackathon.Adapters.RVAdapter;
 import com.kekaton.hackathon.R;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -14,15 +17,27 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ChallengesFragment extends BaseFragment {
-    @Bind(R.id.textView2) TextView textView;
+    @Bind(R.id.textView2)
+    TextView textView;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     boolean isCompleted;
 
-    public ChallengesFragment(){
+    List<String> list;
+
+    public ChallengesFragment() {
         //empty constructor
     }
 
@@ -67,13 +82,37 @@ public class ChallengesFragment extends BaseFragment {
         //    textView.setText("Тут текущие");
         //}
 
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(llm);
+
+        list = new ArrayList<>();
+        list.add("Rofl 1");
+        list.add("Rofl 2");
+        list.add("Rofl 3");
+
+        RVAdapter adapter = new RVAdapter(list);
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
     VKRequest.VKRequestListener mRequestListener = new VKRequest.VKRequestListener() {
         @Override
         public void onComplete(VKResponse response) {
-            textView.setText(response.json.toString());
+
+            String first_name = "No";
+            String last_name = "Name";
+            try {
+                JSONObject jsonResponse = response.json.getJSONObject("response");
+                first_name = jsonResponse.getString("first_name");
+                last_name = jsonResponse.getString("last_name");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            textView.setText("Welcome " + first_name + " " + last_name);
+
         }
 
         @Override
@@ -91,4 +130,6 @@ public class ChallengesFragment extends BaseFragment {
         public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
         }
     };
+
 }
+

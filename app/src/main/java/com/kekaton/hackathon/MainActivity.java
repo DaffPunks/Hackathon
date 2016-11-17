@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kekaton.hackathon.Activity.LoginActivity;
 import com.kekaton.hackathon.Activity.ProfileActivity;
@@ -126,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         VKSdk.logout();
+                                        if(!VKSdk.isLoggedIn()) {
+                                            startActivity(new Intent(activity, LoginActivity.class));
+                                        } else {
+                                            Toast.makeText(activity, "Error", Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 });
                                 break;
