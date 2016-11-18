@@ -9,6 +9,7 @@
         app:srcCompat="@color/colorPrimaryLight"
         android:id="@+id/photo"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_margin="3dp" />
 
 </com.kekaton.hackathon.Util.SquareRelativeLayout>
