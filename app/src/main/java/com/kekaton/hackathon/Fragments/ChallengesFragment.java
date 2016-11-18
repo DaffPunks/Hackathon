@@ -66,7 +66,7 @@ public class ChallengesFragment extends BaseFragment {
         VKApiCall vkApi = new VKApiCall(getContext());
 
         list = new ArrayList<>();
-        list.add(new Challenge(150, 30, "Въебу лыжами Раисе хуисе, дырявой преподавательнице физры КемГУ", "Артём", "Смаль", "https://pp.vk.me/c638819/v638819367/f6ce/yFYi1IKxB2Q.jpg"));
+        list.add(new Challenge(150, 30, "Въебу лыжами Раисе хуисе, дырявой преподавательнице физры КемГУ", "Егор", "Катков", "https://pp.vk.me/c631523/v631523715/37af7/ZtT0R3h-0fE.jpg"));
         list.add(new Challenge(10, 4, "Кину гавнецоу", "Артём", "Смаль", "https://pp.vk.me/c638819/v638819367/f6ce/yFYi1IKxB2Q.jpg"));
         list.add(new Challenge(121, 33, "Кину гавнецооо", "Артём", "Смаль", "https://pp.vk.me/c638819/v638819367/f6ce/yFYi1IKxB2Q.jpg"));
 
