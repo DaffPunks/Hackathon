@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kekaton.hackathon.API.VKApiCall;
 import com.kekaton.hackathon.Activity.NewChallengeActivity;
 import com.kekaton.hackathon.Adapters.ChallengesAdapter;
 import com.kekaton.hackathon.Model.Challenge;
 import com.kekaton.hackathon.R;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +63,12 @@ public class ChallengesFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
+        VKApiCall vkApi = new VKApiCall(getContext());
+
         list = new ArrayList<>();
-        list.add(new Challenge(150, 30, "Въебу лыжами Раисе хуисе, дырявой преподавательнице физры КемГУ", 7634482));
-        list.add(new Challenge(10, 4, "Кину гавнецоу", 7634482));
-        list.add(new Challenge(121, 33, "Кину гавнецоу", 7634482));
+        list.add(new Challenge(150, 30, "Въебу лыжами Раисе хуисе, дырявой преподавательнице физры КемГУ", "Егор", "Катков", "https://pp.vk.me/c631523/v631523715/37af7/ZtT0R3h-0fE.jpg"));
+        list.add(new Challenge(10, 4, "Кину гавнецоу", "Артём", "Смаль", "https://pp.vk.me/c638819/v638819367/f6ce/yFYi1IKxB2Q.jpg"));
+        list.add(new Challenge(121, 33, "Кину гавнецооо", "Артём", "Смаль", "https://pp.vk.me/c638819/v638819367/f6ce/yFYi1IKxB2Q.jpg"));
 
         ChallengesAdapter adapter = new ChallengesAdapter(list, getActivity());
         recyclerView.setAdapter(adapter);

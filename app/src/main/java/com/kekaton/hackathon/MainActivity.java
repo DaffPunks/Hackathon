@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private String firstName;
     private String lastName;
     private String photoMax;
+    private int uid;
     private String sex;
 
     public void openDrawer() {
@@ -182,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         lastName = sPref.getString("last_name", "noe");
         photoMax = sPref.getString("photoMax", "");
         sex = sPref.getString("sex", "x");
+        uid = sPref.getInt("uid", 0);
     }
 
     private class SmoothActionBarDrawerToggle extends ActionBarDrawerToggle {
