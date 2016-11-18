@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             VKScope.MESSAGES,
             VKScope.DOCS
     };
-
+    VKApiCall vkApi;
     AppCompatActivity activity;
     SharedPreferences sPref;
 
@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
+
+        vkApi = new VKApiCall(this);
 
         activity = this;
 
@@ -66,9 +68,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
 
-                VKApiCall.getUser(new VKRequest.VKRequestListener() {
+                vkApi.getUser(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
+                        int id = 0;
                         String first_name = "No";
                         String last_name = "Name";
                         String sex = "Sex";
@@ -79,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             last_name = jsonResponse.optJSONObject(0).getString("last_name");
                             sex = jsonResponse.optJSONObject(0).getString("sex");
                             photoMax = jsonResponse.optJSONObject(0).getString("photo_max");
+                            id = jsonResponse.optJSONObject(0).getInt("id");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                         ed.putString("last_name", last_name);
                         ed.putString("sex", sex);
                         ed.putString("photoMax", photoMax);
+                        ed.putInt("id", id);
                         ed.apply();
 
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

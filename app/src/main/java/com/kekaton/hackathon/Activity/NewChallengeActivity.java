@@ -34,6 +34,8 @@ public class NewChallengeActivity extends AppCompatActivity {
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    VKApiCall vkApi;
+
     List<Photo> list;
 
     @Override
@@ -48,7 +50,8 @@ public class NewChallengeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(glm);
 
         list = new ArrayList<>();
-        VKApiCall.getPhotos(new VKRequest.VKRequestListener() {
+        vkApi = new VKApiCall(this);
+        vkApi.getPhotos(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 Log.d("Tag", response.json.toString());
