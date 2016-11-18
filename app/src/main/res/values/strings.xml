@@ -4,4 +4,8 @@
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
     <string name="login">Login</string>
+    <string-array name="typeSelection">
+        <item>Подписки</item>
+        <item>Лайки</item>
+    </string-array>
 </resources>
