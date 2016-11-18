@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+                        SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
                         SharedPreferences.Editor ed = sPref.edit();
                         ed.putString("first_name", first_name);
                         ed.putString("last_name", last_name);

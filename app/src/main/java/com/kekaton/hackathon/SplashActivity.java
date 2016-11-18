@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.kekaton.hackathon.Activity.LoginActivity;
+import com.kekaton.hackathon.Activity.RegisterActivity;
 import com.vk.sdk.VKSdk;
 
 public class SplashActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
         Log.d("TAG", "Is Logged in?" + VKSdk.isLoggedIn());
 
         if (VKSdk.isLoggedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         } else {
             startActivity(new Intent(this, LoginActivity.class));
         }
