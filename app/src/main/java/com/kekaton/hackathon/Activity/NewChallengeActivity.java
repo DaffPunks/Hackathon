@@ -2,79 +2,60 @@ package com.kekaton.hackathon.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kekaton.hackathon.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by User on 17.11.2016.
- */
-
 public class NewChallengeActivity extends AppCompatActivity {
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
-    @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.description) EditText description;
+    @Bind(R.id.confirmBtn) Button confirmBtn;
+    @Bind(R.id.quantity) EditText quantity;
 
-    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_challenge_view);
         ButterKnife.bind(this);
 
-        mToolbar.setTitle("Новый вызов");
-
-        GridLayoutManager glm = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(glm);
-
-        list = new ArrayList<>();
-        VKApiCall.getPhotos(new VKRequest.VKRequestListener() {
+        mToolbar.setTitle("Новый челлендж");
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.typeSelection, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onComplete(VKResponse response) {
-                Log.d("Tag", response.json.toString());
-                try {
-                    JSONArray result = response.json.getJSONObject("response").optJSONArray("items");
-                    for (int i = 0; i < result.length(); i++) {
-                        list.add(new Photo((Integer) result.getJSONObject(i).get("id"), result.getJSONObject(i).get("photo_604").toString()));
-                    }
-
-                    Log.d("Tag", list.toString());
-                    ProfilePhotosAdapter adapter = new ProfilePhotosAdapter(list, getApplicationContext());
-                    recyclerView.setAdapter(adapter);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
-                super.onProgress(progressType, bytesLoaded, bytesTotal);
-            }
+            public void onNothingSelected(AdapterView<?> parent) {
 
-            @Override
-            public void onError(VKError error) {
-                Log.d("TAG", error.toString());
             }
         });
 
-    }
-    */
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_challenge_view_deprecated);
-        ButterKnife.bind(this);
-
-        mToolbar.setTitle("Новый вызов");
-
-
-
+        View.OnClickListener oclBtnOk = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Clicked!", Toast.LENGTH_SHORT).show();
+                Log.d("DESC", description.getText().toString());
+                Log.d("QUANT", quantity.getText().toString());
+            }
+        };
+        confirmBtn.setOnClickListener(oclBtnOk);
     }
 }
