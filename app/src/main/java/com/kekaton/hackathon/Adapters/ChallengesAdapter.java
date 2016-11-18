@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kekaton.hackathon.API.VKApiCall;
 import com.kekaton.hackathon.Model.Challenge;
 import com.kekaton.hackathon.R;
 import com.kekaton.hackathon.Util.CircleTransform;
 import com.squareup.picasso.Picasso;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.StreamHandler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +53,8 @@ public class ChallengesAdapter extends RecyclerView.Adapter<ChallengesAdapter.Pe
 
     @Override
     public void onBindViewHolder(PersonViewHolder holder, int position) {
+
+        holder.name.setText(list.get(position).getFName() + " " + list.get(position).getLName());
         holder.descText.setText(list.get(position).getDescription());
 
         //holder.progressText.setText(list.get(position).getProgress() + "/" + list.get(position).getGoal());
@@ -57,8 +69,7 @@ public class ChallengesAdapter extends RecyclerView.Adapter<ChallengesAdapter.Pe
             }
         });
 
-        Picasso.with(context).load("https://pp.vk.me/c604627/v604627821/6ae2/65Mg3K_wbJM.jpg").fit().transform(new CircleTransform()).into(holder.profileImg);
-
+        Picasso.with(context).load(list.get(position).getProfilePhoto()).fit().transform(new CircleTransform()).into(holder.profileImg);
     }
 
     @Override
@@ -72,6 +83,7 @@ public class ChallengesAdapter extends RecyclerView.Adapter<ChallengesAdapter.Pe
         @Bind(R.id.description)  TextView    descText;
         @Bind(R.id.progressBar4) ProgressBar progressBar;
         @Bind(R.id.profileImg)   ImageView   profileImg;
+        @Bind(R.id.textView6)   TextView    name;
 
         PersonViewHolder(View itemView) {
             super(itemView);

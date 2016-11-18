@@ -8,13 +8,29 @@ public class Challenge {
     private int goal;
     private int progress;
     private String description;
-    private int UserID;
+    private String f_name;
+    private String l_name;
+    private String profile_photo;
 
-    public Challenge(int goal, int progress, String description, int userID) {
+    public Challenge(int goal, int progress, String description, String f_name, String l_name, String profile_photo) {
         this.goal = goal;
         this.progress = progress;
         this.description = description;
-        UserID = userID;
+        this.f_name = f_name;
+        this.l_name = l_name;
+        this.profile_photo = profile_photo;
+    }
+
+    public String getFName() {
+        return f_name;
+    }
+
+    public String getLName() {
+        return l_name;
+    }
+
+    public String getProfilePhoto() {
+        return profile_photo;
     }
 
     public int getGoal() {
@@ -35,9 +51,5 @@ public class Challenge {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getUserID() {
-        return UserID;
     }
 }

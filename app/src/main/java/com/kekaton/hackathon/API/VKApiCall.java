@@ -3,6 +3,7 @@ package com.kekaton.hackathon.API;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.kekaton.hackathon.MainActivity;
 import com.vk.sdk.api.VKApi;
@@ -45,5 +46,13 @@ public class VKApiCall {
         VKRequest request = new VKRequest("photos.getAll", VKParameters.from(VKApiConst.COUNT, 30, VKApiConst.OWNER_ID, id));
 
         request.executeWithListener(mRequestListener);
+    }
+
+    public void getChallengeData(VKRequest.VKRequestListener mRequestListener, int id) {
+        VKRequest request = new VKRequest("users.get", VKParameters.from(VKApiConst.USER_ID, String.valueOf(id), VKApiConst.FIELDS,
+                "first_name, last_name, photo_200"));
+
+        request.executeWithListener(mRequestListener);
+
     }
 }
