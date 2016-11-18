@@ -85,11 +85,12 @@ public class NewChallengeActivity extends AppCompatActivity {
                 Map<String, String> mapJson = new HashMap<>();
                 SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
                 mapJson.put("token", sPref.getString("token", "null"));
-                mapJson.put("description", description.getText().toString());
+                /*mapJson.put("description", description.getText().toString());
                 mapJson.put("goal_type", String.valueOf(GOAL_TYPE));
                 mapJson.put("goal_number", quantity.getText().toString());
-                mapJson.put("goal_vk_uuid", "29286202");
+                mapJson.put("goal_vk_uuid", "29286202");*/
                 Call<Object> call = intf.newChallenge(mapJson);
+
                 call.enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {

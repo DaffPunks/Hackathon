@@ -9,13 +9,6 @@ import retrofit2.http.POST;
 
 public interface NewChallengesApi {
     @FormUrlEncoded
-    @POST ("api/challenge/create")
+    @POST ("api/test")
     Call<Object> newChallenge(@FieldMap Map<String, String> map);
-    /*HashMap:
-    token - token
-    description - desc
-    goal_type - goal
-    goal_number - goal_n
-    goal_vk_uuid - vk_id
-     */
 }
