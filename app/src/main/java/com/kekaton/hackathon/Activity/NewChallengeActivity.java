@@ -119,40 +119,17 @@ public class NewChallengeActivity extends AppCompatActivity {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                Log.d("FINALSRASF", result.toString());
+
+                                if(e==null) {
+                                    Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Error!", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
-
-
-                /*
-                mapJson.put("description", description.getText().toString());
-                mapJson.put("goal_type", String.valueOf(GOAL_TYPE));
-                mapJson.put("goal_number", quantity.getText().toString());
-                mapJson.put("goal_vk_uuid", "29286202");
-                //Call<Object> call = intf.newChallenge(mapJson, sPref.getString("token", "null"));
-                Call<Object> call = intf.newChallenge(res);
-                Log.d("asdDASD", res);
-                call.enqueue(new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        if(response.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            try {
-                                Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                                Log.d("ASD", response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-
-                    }
-                });*/
+                //вызываем хуй пистолетова
             }
         };
         confirmBtn.setOnClickListener(oclBtnOk);
