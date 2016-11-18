@@ -45,7 +45,7 @@ public class ChallengesAdapter extends RecyclerView.Adapter<ChallengesAdapter.Pe
     public void onBindViewHolder(PersonViewHolder holder, int position) {
         holder.descText.setText(list.get(position).getDescription());
 
-        holder.progressText.setText(list.get(position).getProgress() + "/" + list.get(position).getGoal());
+        //holder.progressText.setText(list.get(position).getProgress() + "/" + list.get(position).getGoal());
 
         holder.progressBar.setMax(list.get(position).getGoal());
         holder.progressBar.setProgress(list.get(position).getProgress());
@@ -68,7 +68,7 @@ public class ChallengesAdapter extends RecyclerView.Adapter<ChallengesAdapter.Pe
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.card_view)    CardView    card;
-        @Bind(R.id.textView4)    TextView    progressText;
+        //@Bind(R.id.textView4)    TextView    progressText;
         @Bind(R.id.description)  TextView    descText;
         @Bind(R.id.progressBar4) ProgressBar progressBar;
         @Bind(R.id.profileImg)   ImageView   profileImg;

@@ -6,9 +6,9 @@
     app:cardElevation="5dp"
     app:layout_collapseParallaxMultiplier="1.0"
     app:cardCornerRadius="2dp"
-    android:layout_margin="10px"
     android:id="@+id/card_view"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,7 +26,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:text="Имя Фамилия"
@@ -35,37 +36,61 @@
                 android:id="@+id/textView6"
                 android:textSize="18dp"
                 android:paddingLeft="10dp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 android:layout_alignTop="@+id/profileImg"
                 android:layout_toRightOf="@+id/profileImg"
                 android:layout_toEndOf="@+id/profileImg" />
 
+            <TextView
+                android:text="Описание"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"
+                android:layout_weight="0.86"
+                android:textColor="?android:attr/textColorSecondary"
+                android:paddingBottom="10dp"
+                android:layout_below="@+id/textView6"
+                android:layout_toRightOf="@+id/profileImg"
+                android:layout_toEndOf="@+id/profileImg"
+                android:paddingLeft="10dp" />
+
         </RelativeLayout>
 
-        <TextView
-            android:text="Описание"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
 
-        <TextView
-            android:text="10/10"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="3dp"
-            android:textAlignment="center"
-            android:layout_weight="0.51" />
+
+            app:srcCompat="@drawable/bg"
+            android:id="@+id/imageView3"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="7.11"
+            android:layout_height="150dp"
+            android:scaleType="fitXY" />
 
         <ProgressBar
             android:layout_width="match_parent"
             android:id="@+id/progressBar4"
             android:layout_height="wrap_content"
             style="@style/ProgressBar" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+        <Button
+            android:text="213"
+            android:layout_width="69dp"
+            android:id="@+id/button3"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackground"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:elevation="0dp"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/ic_calendar_black_24dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp" />
 
     </LinearLayout>
 

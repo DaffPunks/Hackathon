@@ -4,6 +4,7 @@ import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.model.VKPhotoArray;
 
 /**
  * Created by User on 17.11.2016.
@@ -20,6 +21,13 @@ public class VKApiCall {
                         "status,last_seen,common_count,relation,relatives,counters"));
         request.secure = false;
         request.useSystemLanguage = false;
+
+        request.executeWithListener(mRequestListener);
+    }
+
+    public static void getPhotos(VKRequest.VKRequestListener mRequestListener){
+
+        VKRequest request = new VKRequest("photos.getAll", VKParameters.from(VKApiConst.COUNT, 30, VKApiConst.OWNER_ID, 40514821));
 
         request.executeWithListener(mRequestListener);
     }

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#D9042B</color>
     <color name="colorPrimaryDark">#6B0C22</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#D9042B</color>
     <color name="splashBackGround">#2f3447</color>
     <color name="VKBlue">#507299</color>
 </resources>

@@ -1,6 +1,8 @@
 package com.kekaton.hackathon.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kekaton.hackathon.Activity.NewChallengeActivity;
 import com.kekaton.hackathon.R;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class MainFragment extends BaseFragment {
     @Bind(R.id.toolbar)       Toolbar      mToolbar;
     @Bind(R.id.pager)         ViewPager    viewPager;
     @Bind(R.id.main_tabs)     TabLayout    tabLayout;
+    @Bind(R.id.fab)           FloatingActionButton fab;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -44,6 +48,13 @@ public class MainFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this, view);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), NewChallengeActivity.class));
+            }
+        });
 
         mToolbar.setTitle("Hackathon");
 
