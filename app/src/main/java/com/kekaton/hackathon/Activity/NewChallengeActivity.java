@@ -2,24 +2,10 @@ package com.kekaton.hackathon.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
-import com.kekaton.hackathon.API.VKApiCall;
-import com.kekaton.hackathon.Adapters.ProfilePhotosAdapter;
-import com.kekaton.hackathon.Model.Photo;
 import com.kekaton.hackathon.R;
-import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,8 +20,7 @@ public class NewChallengeActivity extends AppCompatActivity {
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    List<Photo> list;
-
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +62,19 @@ public class NewChallengeActivity extends AppCompatActivity {
                 Log.d("TAG", error.toString());
             }
         });
+
+    }
+    */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.new_challenge_view_deprecated);
+        ButterKnife.bind(this);
+
+        mToolbar.setTitle("Новый вызов");
+
+
 
     }
 }
