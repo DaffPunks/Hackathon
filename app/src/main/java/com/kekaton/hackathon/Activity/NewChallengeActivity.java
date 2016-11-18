@@ -18,13 +18,21 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.kekaton.hackathon.API.LoginApi;
 import com.kekaton.hackathon.API.NewChallengesApi;
+import com.kekaton.hackathon.Fragments.ProfileFragment;
 import com.kekaton.hackathon.MainActivity;
 import com.kekaton.hackathon.R;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -41,15 +49,15 @@ public class NewChallengeActivity extends AppCompatActivity {
     @Bind(R.id.confirmBtn) Button confirmBtn;
     @Bind(R.id.quantity) EditText quantity;
 
-    private final String URL = "http://138.68.101.176/";
+    //private final String URL = "";
 
-    private Gson gson = new GsonBuilder().create();
-    private Retrofit retrofit = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl(URL)
-            .build();
+    //private Gson gson = new GsonBuilder().create();
+    //private Retrofit retrofit = new Retrofit.Builder()
+    //        .addConverterFactory(GsonConverterFactory.create(gson))
+    //        .baseUrl(URL)
+    //        .build();
 
-    private NewChallengesApi intf = retrofit.create(NewChallengesApi.class);
+    //private NewChallengesApi intf = retrofit.create(NewChallengesApi.class);
 
     private static Integer GOAL_TYPE = null;
 
@@ -84,17 +92,59 @@ public class NewChallengeActivity extends AppCompatActivity {
                 Log.d("QUANT", quantity.getText().toString());
                 Map<String, String> mapJson = new HashMap<>();
                 SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
-                mapJson.put("token", sPref.getString("token", "null"));
-                /*mapJson.put("description", description.getText().toString());
+                //mapJson.put("token", sPref.getString("token", "null"));
+
+                JsonObject json = new JsonObject();
+
+                String res = "";
+                String URL = "";
+                res += "?token=" + sPref.getString("token", "null");
+                try {
+                    res += "&description=" + URLEncoder.encode(description.getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                res += "&goal_type=" + String.valueOf(GOAL_TYPE);
+                res += "&goal_number=" + quantity.getText().toString();
+                res += "&goal_vk_uuid=29286202";
+
+                URL = res.replaceAll(" ", "%20");
+
+
+
+                Ion.with(getApplicationContext())
+                        .load("http://138.68.101.176/api/challenge/create"+URL)
+                        .setJsonObjectBody(json)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                Log.d("FINALSRASF", result.toString());
+                            }
+                        });
+
+
+                /*
+                mapJson.put("description", description.getText().toString());
                 mapJson.put("goal_type", String.valueOf(GOAL_TYPE));
                 mapJson.put("goal_number", quantity.getText().toString());
-                mapJson.put("goal_vk_uuid", "29286202");*/
-                Call<Object> call = intf.newChallenge(mapJson);
-
+                mapJson.put("goal_vk_uuid", "29286202");
+                //Call<Object> call = intf.newChallenge(mapJson, sPref.getString("token", "null"));
+                Call<Object> call = intf.newChallenge(res);
+                Log.d("asdDASD", res);
                 call.enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
-                        Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+                        if(response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            try {
+                                Toast.makeText(getApplicationContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                Log.d("ASD", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
 
@@ -102,7 +152,7 @@ public class NewChallengeActivity extends AppCompatActivity {
                     public void onFailure(Call<Object> call, Throwable t) {
 
                     }
-                });
+                });*/
             }
         };
         confirmBtn.setOnClickListener(oclBtnOk);
