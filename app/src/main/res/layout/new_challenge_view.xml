@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -50,12 +51,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/confirmBtn"
         android:layout_alignRight="@+id/description"
         android:layout_alignEnd="@+id/description"
         android:layout_alignLeft="@+id/description"
-        android:layout_alignStart="@+id/description" />
+        android:layout_alignStart="@+id/description"
+        android:background="@color/accent"
+        android:textColor="@color/cardview_light_background" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -65,23 +68,22 @@
         android:id="@+id/quantity"
         android:layout_marginBottom="10dp"
         android:layout_above="@+id/confirmBtn"
-        android:layout_alignLeft="@+id/confirmBtn"
-        android:layout_alignStart="@+id/confirmBtn"
+        android:hint="Количество"
         android:layout_alignRight="@+id/confirmBtn"
         android:layout_alignEnd="@+id/confirmBtn"
-        android:hint="Количество"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/quantity"
-        android:layout_alignStart="@+id/quantity"
         android:layout_above="@+id/quantity"
-        android:entries="@array/typeSelection" />
+        android:entries="@array/typeSelection"
+        android:layout_marginRight="10dp"
+        android:layout_alignLeft="@+id/description"
+        android:layout_alignStart="@+id/description"
+        android:layout_marginBottom="10dp" />
 
 
 </RelativeLayout>
