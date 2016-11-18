@@ -23,7 +23,7 @@ public class BaseFragment extends Fragment {
      */
     protected void setupToolbarForFragment(Toolbar toolbar) {
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-        getMainActivity().setSupportActionBar(toolbar);
+        //getMainActivity().setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

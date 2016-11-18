@@ -5,6 +5,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.kekaton.hackathon"
         minSdkVersion 16
         targetSdkVersion 24

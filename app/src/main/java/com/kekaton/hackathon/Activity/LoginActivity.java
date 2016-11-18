@@ -28,91 +28,17 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String[] sMyScope = new String[]{
-            VKScope.FRIENDS,
-            VKScope.WALL,
-            VKScope.PHOTOS,
-            VKScope.NOHTTPS,
-            VKScope.MESSAGES,
-            VKScope.DOCS
-    };
-    VKApiCall vkApi;
-    AppCompatActivity activity;
-    SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
-        vkApi = new VKApiCall(this);
-
-        activity = this;
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VKSdk.login(activity, sMyScope);
-            }
-        });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
-            @Override
-            public void onResult(VKAccessToken res) {
-
-                vkApi.getUser(new VKRequest.VKRequestListener() {
-                    @Override
-                    public void onComplete(VKResponse response) {
-                        int id = 0;
-                        String first_name = "No";
-                        String last_name = "Name";
-                        String sex = "Sex";
-                        String photoMax = "";
-                        try {
-                            JSONArray jsonResponse = response.json.getJSONArray("response");
-                            first_name = jsonResponse.optJSONObject(0).getString("first_name");
-                            last_name = jsonResponse.optJSONObject(0).getString("last_name");
-                            sex = jsonResponse.optJSONObject(0).getString("sex");
-                            photoMax = jsonResponse.optJSONObject(0).getString("photo_max");
-                            id = jsonResponse.optJSONObject(0).getInt("id");
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
-                        ed.putString("first_name", first_name);
-                        ed.putString("last_name", last_name);
-                        ed.putString("sex", sex);
-                        ed.putString("photoMax", photoMax);
-                        ed.putInt("id", id);
-                        ed.apply();
-
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onError(VKError error) {
-                //Error login
-            }
-
-        })) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
 }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.kekaton.hackathon.API.VKApiCall;
 import com.kekaton.hackathon.Activity.LoginActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
@@ -29,7 +30,15 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -153,12 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
-                                        VKSdk.logout();
-                                        if (!VKSdk.isLoggedIn()) {
-                                            startActivity(new Intent(activity, LoginActivity.class));
-                                        } else {
-                                            Toast.makeText(activity, "Error", Toast.LENGTH_LONG).show();
-                                        }
+                                        //TODO: Logout
                                     }
                                 });
                                 break;
@@ -205,6 +209,64 @@ public class MainActivity extends AppCompatActivity {
 
         public void runWhenIdle(Runnable runnable) {
             this.runnable = runnable;
+        }
+    }
+
+    VKApiCall vkApi = new VKApiCall(this);
+    SharedPreferences sPref;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+
+                vkApi.getUser(new VKRequest.VKRequestListener() {
+                    @Override
+                    public void onComplete(VKResponse response) {
+
+                        int id = 0;
+                        String first_name = "No";
+                        String last_name = "Name";
+                        String sex = "Sex";
+                        String photoMax = "";
+
+                        try {
+                            JSONArray jsonResponse = response.json.getJSONArray("response");
+                            first_name = jsonResponse.optJSONObject(0).getString("first_name");
+                            last_name = jsonResponse.optJSONObject(0).getString("last_name");
+                            sex = jsonResponse.optJSONObject(0).getString("sex");
+                            photoMax = jsonResponse.optJSONObject(0).getString("photo_max");
+                            id = jsonResponse.optJSONObject(0).getInt("id");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putString("first_name", first_name);
+                        ed.putString("last_name", last_name);
+                        ed.putString("sex", sex);
+                        ed.putString("photoMax", photoMax);
+                        ed.putInt("id", id);
+                        ed.apply();
+
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onError(VKError error) {
+                //Error login
+            }
+
+        })) {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
