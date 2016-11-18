@@ -1,6 +1,7 @@
 package com.kekaton.hackathon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,12 +16,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("TAG", "Is Logged in?" + VKSdk.isLoggedIn());
+        SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
 
-        if (VKSdk.isLoggedIn()) {
+
+        if (sPref.getString("token", "").equals("")) {
             startActivity(new Intent(this, LoginActivity.class));
         } else {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         finish();
     }

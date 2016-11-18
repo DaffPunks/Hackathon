@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
@@ -162,7 +163,12 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
-                                        //TODO: Logout
+                                        SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+                                        sPref.edit().clear().apply();
+
+                                        VKSdk.logout();
+
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
                                 });
                                 break;

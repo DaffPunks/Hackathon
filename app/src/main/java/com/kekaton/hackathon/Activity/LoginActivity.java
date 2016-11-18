@@ -39,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.button) Button button;
+    @Bind(R.id.register) Button register;
     @Bind(R.id.email)    EditText email;
     @Bind(R.id.password) EditText password;
 
@@ -61,6 +62,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
         ButterKnife.bind(this);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

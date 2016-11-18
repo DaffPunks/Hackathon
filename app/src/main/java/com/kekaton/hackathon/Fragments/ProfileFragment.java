@@ -96,7 +96,7 @@ public class ProfileFragment extends BaseFragment {
                 public void onClick(View v) {
                     VKSdk.logout();
                     if (!VKSdk.isLoggedIn()) {
-                        startActivity(new Intent(getMainActivity(), LoginActivity.class));
+                        startActivity(new Intent(getMainActivity(), MainActivity.class));
                     } else {
                         Toast.makeText(getMainActivity(), "Error", Toast.LENGTH_LONG).show();
                     }
