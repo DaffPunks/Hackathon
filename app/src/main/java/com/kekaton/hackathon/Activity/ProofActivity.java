@@ -2,6 +2,7 @@ package com.kekaton.hackathon.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,8 +15,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.kekaton.hackathon.MainActivity;
 import com.kekaton.hackathon.R;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -29,6 +35,8 @@ import com.vk.sdk.api.model.VKPhotoArray;
 import com.vk.sdk.api.model.VKWallPostResult;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +57,8 @@ public class ProofActivity extends AppCompatActivity {
     @Bind(R.id.link) EditText link;
     @Bind(R.id.video) Button video;
 
+    int ID;
+
     private static final int CAMERA_REQUEST = 1888;
 
     @Override
@@ -56,6 +66,10 @@ public class ProofActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.proof_screen);
         ButterKnife.bind(this);
+
+        ID = getIntent().getIntExtra("id", 1222);
+
+        Log.d("TAGA", ID + " sad");
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +138,35 @@ public class ProofActivity extends AppCompatActivity {
                 // recycle bitmap
                 VKApiPhoto photoModel = ((VKPhotoArray) response.parsedModel).get(0);
                 Log.d("WIN", response.json.toString());
-                makePost(new VKAttachments(photoModel), message, getMyId());
+                try {
+                    String url = response.json.getJSONArray("response").getJSONObject(0).getString("photo_604");
+                    Log.d("qwe", url);
+
+                    //http://localhost:8000/api/proof/create?token=&proof_type=0&challenge_id=&photo_url=
+                    SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+
+                    JsonObject json = new JsonObject();
+                    json.addProperty("token", sPref.getString("token", "null"));
+                    json.addProperty("proof_type", 0);
+                    json.addProperty("challenge_id", ID);
+                    json.addProperty("photo_url", url);
+
+                    Ion.with(getApplicationContext())
+                            .load("http://138.68.101.176/api/proof/create?token=" + sPref.getString("token", "null"))
+                            .setJsonObjectBody(json)
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    Log.d("qwe",result.toString());
+                                }
+                            });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //makePost(new VKAttachments(photoModel), message, getMyId());
             }
             @Override
             public void onError(VKError error) {

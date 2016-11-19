@@ -1,6 +1,7 @@
 package com.kekaton.hackathon.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kekaton.hackathon.Activity.ProofActivity;
 import com.kekaton.hackathon.Model.Challenge;
 import com.kekaton.hackathon.R;
 import com.kekaton.hackathon.Util.CircleTransform;
@@ -47,7 +49,9 @@ public class MyChallengesAdapter extends RecyclerView.Adapter<MyChallengesAdapte
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.get(position).getGoal();
+                Intent intent = new Intent(context, ProofActivity.class);
+                intent.putExtra("id", list.get(position).getGoal());
+                context.startActivity(intent);
             }
         });
         /*holder.name.setText(list.get(position).getFName() + " " + list.get(position).getLName());
