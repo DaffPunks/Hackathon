@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/md_red_600">
 
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/redbg" />
 
     <TextView
         android:text="Hackathon"
@@ -38,7 +41,8 @@
         android:layout_marginRight="30dp"
         android:textStyle="normal|bold"
         android:elevation="0dp"
-        android:background="@color/colorThird" />
+        android:background="@color/colorThird"
+        style="@style/WhiteRipple"/>
 
     <Button
         android:text="Ещё нет аккаунта? Зарегистрируйтесь."

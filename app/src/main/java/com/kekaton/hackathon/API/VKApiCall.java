@@ -32,7 +32,7 @@ public class VKApiCall {
                         "photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online," +
                         "online_mobile,lists,domain,has_mobile,contacts,connections,site,education," +
                         "universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message," +
-                        "status,last_seen,common_count,relation,relatives,counters"));
+                        "status,last_seen,common_count,relation,relatives,counters,followers_count"));
         request.secure = false;
         request.useSystemLanguage = false;
 
@@ -50,7 +50,7 @@ public class VKApiCall {
 
     public void getChallengeData(VKRequest.VKRequestListener mRequestListener, int id) {
         VKRequest request = new VKRequest("users.get", VKParameters.from(VKApiConst.USER_ID, String.valueOf(id), VKApiConst.FIELDS,
-                "first_name, last_name, photo_200"));
+                "first_name, last_name, photo_200, followers_count"));
 
         request.executeWithListener(mRequestListener);
 

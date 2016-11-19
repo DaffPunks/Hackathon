@@ -11,14 +11,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.kekaton.hackathon.API.VKApiCall;
+import com.kekaton.hackathon.Activity.GalleryActivity;
 import com.kekaton.hackathon.Activity.LoginActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -124,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Лента")
                                 .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(FEED_ID),
 
+                        new PrimaryDrawerItem().withName("Мои")
+                                .withIcon(R.drawable.ic_menu_black_24dp).withIconTintingEnabled(true).withIdentifier(3),
+
                         new DividerDrawerItem(),
 
                         new PrimaryDrawerItem().withName("Выйти")
@@ -169,6 +177,15 @@ public class MainActivity extends AppCompatActivity {
                                         VKSdk.logout();
 
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                });
+                                break;
+                            case 3:
+                                mDrawerToggle.runWhenIdle(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        startActivity(new Intent(getApplicationContext(), GalleryActivity.class));
                                     }
                                 });
                                 break;
@@ -248,8 +265,27 @@ public class MainActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        //      http://138.68.101.176/api/vk_profile/create?vk_uuid&name&surname&profile_photo_url
+
+                        JsonObject json = new JsonObject();
+                        json.addProperty("vk_uuid", id);
+                        json.addProperty("name", first_name);
+                        json.addProperty("surname", last_name);
+                        json.addProperty("profile_photo_url", photoMax);
 
                         SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
+
+                        Ion.with(getApplicationContext())
+                                .load("http://138.68.101.176/api/vk_profile/create?token=" + sPref.getString("token", "null"))
+                                .setJsonObjectBody(json)
+                                .asJsonObject()
+                                .setCallback(new FutureCallback<JsonObject>() {
+                                    @Override
+                                    public void onCompleted(Exception e, JsonObject result) {
+                                        Log.d("FINALSRASF", result.toString());
+                                    }
+                                });
+
                         SharedPreferences.Editor ed = sPref.edit();
                         ed.putString("first_name", first_name);
                         ed.putString("last_name", last_name);
