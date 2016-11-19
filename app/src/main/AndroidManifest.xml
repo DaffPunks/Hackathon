@@ -3,6 +3,9 @@
     package="com.kekaton.hackathon">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Application"
@@ -29,9 +32,20 @@
         <activity android:name=".Activity.NewChallengeActivity"/>
         <activity android:name=".Activity.GalleryActivity"/>
         <activity android:name=".Activity.RegisterActivity"/>
+        <activity android:name=".Activity.ProofActivity"/>
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/LoginScreen"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
     </application>
 
 </manifest>

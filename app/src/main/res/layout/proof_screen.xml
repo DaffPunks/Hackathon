@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center">
+
+    <Button
+        android:text="СФотографировать"
+        android:textColor="@color/md_white_1000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/photo"
+        android:layout_below="@+id/password"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textStyle="normal|bold"
+        android:elevation="0dp"
+        android:background="@color/colorThird"
+        style="@style/WhiteRipple"/>
+
+    <Button
+        android:text="Выбрать из Галереи"
+        android:textColor="@color/md_white_1000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/galery"
+        android:layout_below="@+id/password"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textStyle="normal|bold"
+        android:elevation="0dp"
+        android:background="@color/colorThird"
+        style="@style/WhiteRipple"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/link"
+        android:background="@color/vk_white"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="Ссылка на YouTube" />
+
+    <Button
+    android:text="Видео"
+    android:textColor="@color/md_white_1000"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/video"
+    android:layout_below="@+id/password"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:textStyle="normal|bold"
+    android:elevation="0dp"
+    android:background="@color/colorThird"
+    style="@style/WhiteRipple"/>
+
+</LinearLayout>

@@ -49,7 +49,6 @@ public class NewChallengeActivity extends AppCompatActivity {
     @Bind(R.id.description) EditText description;
     @Bind(R.id.confirmBtn) Button confirmBtn;
     @Bind(R.id.quantity) EditText quantity;
-    @Bind(R.id.loadingPanel) RelativeLayout loadingPanel;
 
     private static Integer GOAL_TYPE = null;
 
@@ -58,25 +57,10 @@ public class NewChallengeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_challenge_view);
         ButterKnife.bind(this);
-        loadingPanel.setVisibility(View.GONE);
+        //loadingPanel.setVisibility(View.GONE);
 
         mToolbar.setTitle("Новый челлендж");
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.typeSelection, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                GOAL_TYPE = position;
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         View.OnClickListener oclBtnOk = new View.OnClickListener() {
             @Override
@@ -114,18 +98,18 @@ public class NewChallengeActivity extends AppCompatActivity {
 
                                 if(e==null) {
                                     Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
-                                    loadingPanel.setVisibility(View.GONE);
+                                    //loadingPanel.setVisibility(View.GONE);
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Error!", Toast.LENGTH_SHORT).show();
-                                    loadingPanel.setVisibility(View.GONE);
-                                    confirmBtn.setVisibility(View.VISIBLE);
+                                    //loadingPanel.setVisibility(View.GONE);
+
                                 }
                             }
                         });
-                loadingPanel.setVisibility(View.VISIBLE);
-                confirmBtn.setVisibility(View.GONE);
+
+
             }
         };
         confirmBtn.setOnClickListener(oclBtnOk);

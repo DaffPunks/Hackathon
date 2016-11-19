@@ -11,14 +11,21 @@ public class Challenge {
     private String f_name;
     private String l_name;
     private String profile_photo;
+    private boolean isCompleted;
 
-    public Challenge(int goal, int progress, String description, String f_name, String l_name, String profile_photo) {
+    public Challenge(int goal, int progress, String description, String f_name, String l_name, String profile_photo, boolean isCompleted) {
         this.goal = goal;
         this.progress = progress;
         this.description = description;
         this.f_name = f_name;
         this.l_name = l_name;
         this.profile_photo = profile_photo;
+        this.isCompleted = isCompleted;
+
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
     public String getFName() {

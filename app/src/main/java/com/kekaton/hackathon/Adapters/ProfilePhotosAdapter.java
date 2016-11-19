@@ -45,7 +45,7 @@ public class ProfilePhotosAdapter extends RecyclerView.Adapter<ProfilePhotosAdap
             public void onClick(View v) {
                 checkedPhoto = position;
                 String chosenPhotoUrl = list.get(checkedPhoto).getUrl();
-                Picasso.with(context).load(chosenPhotoUrl).resize(350, 350).centerCrop().into(holder.photo);
+                //Picasso.with(context).load(chosenPhotoUrl).resize(350, 350).centerCrop().into(holder.photo);
                 Toast.makeText(context, "Position :" + checkedPhoto, Toast.LENGTH_SHORT).show();
             }
         });

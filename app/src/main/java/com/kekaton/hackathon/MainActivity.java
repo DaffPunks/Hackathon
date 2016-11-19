@@ -20,7 +20,9 @@ import com.google.gson.JsonObject;
 import com.kekaton.hackathon.API.VKApiCall;
 import com.kekaton.hackathon.Activity.GalleryActivity;
 import com.kekaton.hackathon.Activity.LoginActivity;
+import com.kekaton.hackathon.Activity.ProofActivity;
 import com.kekaton.hackathon.Fragments.MainFragment;
+import com.kekaton.hackathon.Fragments.MyChallengesFragment;
 import com.kekaton.hackathon.Fragments.ProfileFragment;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Лента")
                                 .withIcon(R.drawable.ic_newspaper_black_24dp).withIconTintingEnabled(true).withIdentifier(FEED_ID),
 
-                        new PrimaryDrawerItem().withName("Мои")
+                        new PrimaryDrawerItem().withName("Мои челленджи")
                                 .withIcon(R.drawable.ic_menu_black_24dp).withIconTintingEnabled(true).withIdentifier(3),
 
                         new DividerDrawerItem(),
@@ -184,8 +186,10 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawerToggle.runWhenIdle(new Runnable() {
                                     @Override
                                     public void run() {
-
-                                        startActivity(new Intent(getApplicationContext(), GalleryActivity.class));
+                                        fragmentManager
+                                                .beginTransaction()
+                                                .replace(R.id.main_activity_container, MyChallengesFragment.newInstance(), "fragment_main")
+                                                .commit();
                                     }
                                 });
                                 break;
@@ -285,8 +289,15 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d("FINALSRASF", result.toString());
                                     }
                                 });
+                        //http://138.68.101.176/api/credentials?token=&name=&surname=&profile_photo_url
 
-                        SharedPreferences.Editor ed = sPref.edit();
+
+                        JsonObject json2 = new JsonObject();
+                        json.addProperty("name", first_name);
+                        json.addProperty("surname", last_name);
+                        json.addProperty("profile_photo_url", photoMax);
+
+                                         SharedPreferences.Editor ed = sPref.edit();
                         ed.putString("first_name", first_name);
                         ed.putString("last_name", last_name);
                         ed.putString("sex", sex);

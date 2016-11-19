@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/like00" android:duration="15" />
+    <item android:drawable="@drawable/like01" android:duration="15" />
+    <item android:drawable="@drawable/like02" android:duration="15" />
+    <item android:drawable="@drawable/like03" android:duration="15" />
+    <item android:drawable="@drawable/like04" android:duration="15" />
+    <item android:drawable="@drawable/like05" android:duration="15" />
+    <item android:drawable="@drawable/like06" android:duration="15" />
+    <item android:drawable="@drawable/like07" android:duration="15" />
+    <item android:drawable="@drawable/like08" android:duration="15" />
+    <item android:drawable="@drawable/like09" android:duration="15" />
+    <item android:drawable="@drawable/like10" android:duration="15" />
+    <item android:drawable="@drawable/like11" android:duration="15" />
+    <item android:drawable="@drawable/like12" android:duration="15" />
+    <item android:drawable="@drawable/like13" android:duration="15" />
+    <item android:drawable="@drawable/like14" android:duration="15" />
+    <item android:drawable="@drawable/like15" android:duration="15" />
+    <item android:drawable="@drawable/like16" android:duration="15" />
+    <item android:drawable="@drawable/like17" android:duration="15" />
+    <item android:drawable="@drawable/like18" android:duration="15" />
+    <item android:drawable="@drawable/like19" android:duration="15" />
+    <item android:drawable="@drawable/like10" android:duration="15" />
+    <item android:drawable="@drawable/like20" android:duration="15" />
+    <item android:drawable="@drawable/like21" android:duration="15" />
+    <item android:drawable="@drawable/like22" android:duration="15" />
+    <item android:drawable="@drawable/like23" android:duration="15" />
+    <item android:drawable="@drawable/like24" android:duration="15" />
+    <item android:drawable="@drawable/like25" android:duration="15" />
+    <item android:drawable="@drawable/like26" android:duration="15" />
+    <item android:drawable="@drawable/like27" android:duration="15" />
+    <item android:drawable="@drawable/like28" android:duration="15" />
+    <item android:drawable="@drawable/like29" android:duration="15" />
+    <item android:drawable="@drawable/like20" android:duration="15" />
+    <item android:drawable="@drawable/like31" android:duration="15" />
+    <item android:drawable="@drawable/like32" android:duration="15" />
+    <item android:drawable="@drawable/like33" android:duration="15" />
+    <item android:drawable="@drawable/like34" android:duration="15" />
+    <item android:drawable="@drawable/like35" android:duration="15" />
+    <item android:drawable="@drawable/like36" android:duration="15" />
+    <item android:drawable="@drawable/like37" android:duration="15" />
+    <item android:drawable="@drawable/like38" android:duration="15" />
+    <item android:drawable="@drawable/like39" android:duration="15" />
+    <item android:drawable="@drawable/like40" android:duration="15" />
+    <item android:drawable="@drawable/like41" android:duration="15" />
+    <item android:drawable="@drawable/like42" android:duration="15" />
+    <item android:drawable="@drawable/like43" android:duration="15" />
+    <item android:drawable="@drawable/like44" android:duration="15" />
+    <item android:drawable="@drawable/like45" android:duration="15" />
+    <item android:drawable="@drawable/like46" android:duration="15" />
+    <item android:drawable="@drawable/like47" android:duration="15" />
+    <item android:drawable="@drawable/like48" android:duration="15" />
+    <item android:drawable="@drawable/like49" android:duration="15" />
+    <item android:drawable="@drawable/like50" android:duration="15" />
+    <item android:drawable="@drawable/like51" android:duration="15" />
+</animation-list>

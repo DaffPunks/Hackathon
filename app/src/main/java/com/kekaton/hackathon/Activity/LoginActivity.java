@@ -14,10 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.kekaton.hackathon.API.LoginApi;
-import com.kekaton.hackathon.API.RegisterApi;
 import com.kekaton.hackathon.MainActivity;
 import com.kekaton.hackathon.R;
 
@@ -38,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginActivity extends AppCompatActivity {
-    @Bind(R.id.button) Button button;
+    @Bind(R.id.video) Button button;
     @Bind(R.id.register) Button register;
     @Bind(R.id.email)    EditText email;
     @Bind(R.id.password) EditText password;

@@ -99,7 +99,7 @@ public class ChallengesFragment extends BaseFragment {
                         int followersCount;
 
                         int i;
-                        if(!result.toString().equals("[]")) {
+                        if(result != null) {
                             try {
                                 JSONArray arr = new JSONArray(result.toString());
                                 for(i = 0; i < arr.length(); i++){
@@ -110,7 +110,8 @@ public class ChallengesFragment extends BaseFragment {
                                             arr.getJSONObject(i).getString("challenge.description"),
                                             arr.getJSONObject(i).getString("user.name"),
                                             arr.getJSONObject(i).getString("user.surname"),
-                                            arr.getJSONObject(i).getString("goal_vk_uuid")
+                                            arr.getJSONObject(i).getString("goal_vk_uuid"),
+                                            isCompleted
                                     ));
                                 }
                             } catch (JSONException e1) {
