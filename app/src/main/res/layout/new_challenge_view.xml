@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        style="@style/GenericProgressBackground"
+        android:id="@+id/loadingPanel"
+        android:background="?android:attr/colorForeground">
+        <ProgressBar
+            style="@style/GenericProgressIndicator"/>
+    </RelativeLayout>
+
     <android.support.design.widget.AppBarLayout
         android:id="@id/appBarLayout"
         android:layout_width="match_parent"
@@ -42,8 +50,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="Описание"
-        android:layout_above="@+id/spinner"
-        android:layout_marginBottom="10dp"
         android:gravity="top" />
 
     <Button

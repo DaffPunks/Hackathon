@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,16 +49,7 @@ public class NewChallengeActivity extends AppCompatActivity {
     @Bind(R.id.description) EditText description;
     @Bind(R.id.confirmBtn) Button confirmBtn;
     @Bind(R.id.quantity) EditText quantity;
-
-    //private final String URL = "";
-
-    //private Gson gson = new GsonBuilder().create();
-    //private Retrofit retrofit = new Retrofit.Builder()
-    //        .addConverterFactory(GsonConverterFactory.create(gson))
-    //        .baseUrl(URL)
-    //        .build();
-
-    //private NewChallengesApi intf = retrofit.create(NewChallengesApi.class);
+    @Bind(R.id.loadingPanel) RelativeLayout loadingPanel;
 
     private static Integer GOAL_TYPE = null;
 
@@ -66,6 +58,7 @@ public class NewChallengeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_challenge_view);
         ButterKnife.bind(this);
+        loadingPanel.setVisibility(View.GONE);
 
         mToolbar.setTitle("Новый челлендж");
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -92,7 +85,6 @@ public class NewChallengeActivity extends AppCompatActivity {
                 Log.d("QUANT", quantity.getText().toString());
                 Map<String, String> mapJson = new HashMap<>();
                 SharedPreferences sPref = getSharedPreferences("mysettings", MODE_PRIVATE);
-                //mapJson.put("token", sPref.getString("token", "null"));
 
                 JsonObject json = new JsonObject();
 
@@ -122,14 +114,18 @@ public class NewChallengeActivity extends AppCompatActivity {
 
                                 if(e==null) {
                                     Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                    loadingPanel.setVisibility(View.GONE);
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Error!", Toast.LENGTH_SHORT).show();
+                                    loadingPanel.setVisibility(View.GONE);
+                                    confirmBtn.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
-                //вызываем хуй пистолетова
+                loadingPanel.setVisibility(View.VISIBLE);
+                confirmBtn.setVisibility(View.GONE);
             }
         };
         confirmBtn.setOnClickListener(oclBtnOk);
